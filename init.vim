@@ -1,4 +1,3 @@
-"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set nocompatible
 "set encoding=utf-8
 " set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim
@@ -128,7 +127,6 @@ nnoremap <F8> :call JavaErrorToggle()<cr>
 nnoremap <F6> :bw<cr>
 nnoremap ZZ <c-w>z
 
-
 " INSERT MAPPINGS
 inoremap jk <esc>:w<cr>
 inoremap JK <esc>:w<cr>
@@ -174,13 +172,14 @@ let g:EclimLoggingDisabled=1
 " SOLARIZED
 syntax enable
 colorscheme solarized
-let g:solarized_termcolors=16
+let g:solarized_termcolors=256
 let g:solarized_bold=1
 let g:solarized_menu=1
 let g:solarized_italic=1
 set background=dark
 
-set t_Co=256
+" set t_Co=256
+set t_Co=16
 
 "Ctrlp config
 set wildignore+=*.class,*.jar,*/build/*
@@ -262,4 +261,3 @@ function! TapestryFind()
                 execute ":edit ".substitute(filesplit[0].'.tml','java','resources','')
         endif
 endfunction
-
