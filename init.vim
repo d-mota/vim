@@ -149,7 +149,7 @@ inoremap :w<cr> <esc>:w<cr>
 " LEADER MAPPINGS
 let mapleader="\<Space>"
 nnoremap <leader>p :ProjectList<cr>
-nnoremap <leader>t :ProjectTreeToggle<cr>
+nnoremap <leader>t :!ctags -R src/main/java<cr>
 nnoremap <leader>c :JavaCorrect<cr>
 nnoremap <leader>i :JavaImport<cr>
 nnoremap <leader>h :JavaCallHierarchy<cr>
@@ -160,6 +160,7 @@ nnoremap <leader>pp :CtrlP<cr>
 nnoremap <leader>pb :CtrlPBuffer<cr>
 nnoremap <leader>g :JavaGetSet<cr>
 nnoremap <leader>z  ZZ
+nnoremap <leader>o :JavaImportOrganize<cr>
 nnoremap <leader>n :cn<cr>
 nnoremap <leader>a "ap
 nnoremap <leader>b "bp
@@ -233,6 +234,7 @@ let g:easytags_async=1
 
 " Set bookmark directory
 let NERDTreeBookmarksFile=".NERDTreeBookmarks"
+let NERDTreeQuitOnOpen=1
 
 let g:csv_highlight_column = 'y'
 
