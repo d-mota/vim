@@ -177,6 +177,7 @@ nnoremap <leader>a "ap
 nnoremap <leader>b "bp
 nnoremap <leader>s :JavaSearchContext<cr>
 nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>= "*p
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1

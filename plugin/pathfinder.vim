@@ -46,6 +46,12 @@ function! FindStruts()
 				return
 			endif
 		endtry
+	elseif "dyn" == ext
+		if search('action="','c')	
+			:normal f"yi"
+			let path=substitute(split(getreg("\""),"?")[0],'\.do','','g')
+			call OpenType([s:parsedConfigs['a:pt:'.path]])
+		endif
 	endif
 endfunction
 
