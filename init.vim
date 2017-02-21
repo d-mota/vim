@@ -6,7 +6,8 @@ set scrolloff=10
 set tabstop=3
 set shiftwidth=3
 set path+=**
-
+"set relativenumber
+set backspace=eol,indent,start
 
 " Configure bundle
 filetype plugin on
@@ -18,6 +19,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdtree'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'mattn/emmet-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'L9'
@@ -32,7 +35,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'xolox/vim-misc'
 " Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'chrisbra/csv.vim'
+"Plugin 'chrisbra/csv.vim'
 "Plugin 'mattn/webapi-vim'
 "Plugin 'tyru/open-browser.vim'
 "Plugin 'Shougo/unite.vim'
@@ -41,8 +44,11 @@ Plugin 'xolox/vim-notes'
 Plugin 'vim-scripts/VimClojure'
 Plugin 'tpope/vim-fireplace'
 Plugin 'simnalamburt/vim-mundo'
+Plugin 'tpope/vim-vinegar'
+Plugin 'https://github.com/vim-scripts/paredit.vim.git'
 call vundle#end()
 
+let g:netrw_winsize = 25
 "UNITE JIRA CONFIG
 let g:jira_url = 'https://jira.wavecode.com'
 let g:jira_username = ''
@@ -69,6 +75,7 @@ let g:ctrlp_by_filename = 1
 let g:SuperTabDefaultCompletionType = 'context'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.tml"
 let g:EclimJavascriptValidate = 0
+let g:ctrlp_regexp = 1
 let g:EclimJavaSearchSingleResult = "edit"
 let g:EclimKeepLocalHistory = 1
 " NERDTREE CONFIGURATION
@@ -120,7 +127,7 @@ nnoremap tt :call TapestryFind()<cr>
 nnoremap ZZ <c-w><c-z>
 " nnoremap "" i"+<cr>"<esc>==
 nnoremap + i"+<cr>"<esc>==
-nnoremap - i<cr><esc>==
+"nnoremap - i<cr><esc>==
 nnoremap JK :w<cr> 
 nnoremap / /\c
 nnoremap <F8> :call JavaErrorToggle()<cr>
@@ -145,19 +152,23 @@ inoremap `i &iacute;
 inoremap `o &oacute;
 inoremap `u &uacute;
 inoremap :w<cr> <esc>:w<cr>
+"inoremap llog logging.log.Log.macroLog();<esc>hi
+
 
 " LEADER MAPPINGS
 let mapleader="\<Space>"
 nnoremap <leader>p :ProjectList<cr>
-nnoremap <leader>t :!ctags -R src/main/java<cr>
+nnoremap <leader>t :!ctags -R src csrc action sql<cr>
 nnoremap <leader>c :JavaCorrect<cr>
 nnoremap <leader>i :JavaImport<cr>
 nnoremap <leader>h :JavaCallHierarchy<cr>
 nnoremap <leader>ev :tabnew ~/.vimrc<cr>g;
 nnoremap <leader>sv :source ~/.vimrc<cr>
-nnoremap <leader>tt :call TapestryFind()<cr>
-nnoremap <leader>pp :CtrlP<cr>
-nnoremap <leader>pb :CtrlPBuffer<cr>
+nnoremap <leader>st ciwtrue<esc>
+nnoremap <leader>sf ciwfalse<esc>
+"nnoremap <leader>tt :call TapestryFind()<cr>
+"nnoremap <leader>pp :CtrlP<cr>
+"nnoremap <leader>pb :CtrlPBuffer<cr>
 nnoremap <leader>g :JavaGetSet<cr>
 nnoremap <leader>z  ZZ
 nnoremap <leader>o :JavaImportOrganize<cr>
@@ -169,18 +180,19 @@ nnoremap <leader>b :Buffers<cr>
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
+let g:EclimJavaHierarchyDefaultAction='edit'
 
 " SOLARIZED
 syntax enable
 colorscheme solarized
+set background=dark
 let g:solarized_termcolors=256
 let g:solarized_bold=1
 let g:solarized_menu=1
 let g:solarized_italic=1
-set background=dark
 
-" set t_Co=256
-set t_Co=16
+set t_Co=256
+" set t_Co=16
 
 "Ctrlp config
 set wildignore+=*.class,*.jar,*/build/*
@@ -235,6 +247,7 @@ let g:easytags_async=1
 " Set bookmark directory
 let NERDTreeBookmarksFile=".NERDTreeBookmarks"
 let NERDTreeQuitOnOpen=1
+let NERDTreeIgnore=['\.vim$', '\~$', '^target$','^build$','WebContent','gradle','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','bin','aspects','xdoclet','tests','sers','run','override','Library','integration','customtests']
 
 let g:csv_highlight_column = 'y'
 
@@ -263,3 +276,22 @@ function! TapestryFind()
                 execute ":edit ".substitute(filesplit[0].'.tml','java','resources','')
         endif
 endfunction
+
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" VIMCLOJURE CONFIG
+" let vimclojure#WantNailgun = 1
+" let vimclojure#NailgunClient = "/home/dmota/vimclojure-easy/lib/vimclojure-nailgun-client/ng"
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
