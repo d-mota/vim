@@ -46,6 +46,7 @@ Plugin 'tpope/vim-fireplace'
 Plugin 'simnalamburt/vim-mundo'
 Plugin 'tpope/vim-vinegar'
 Plugin 'https://github.com/vim-scripts/paredit.vim.git'
+Plugin 'gnupg'
 call vundle#end()
 
 let g:netrw_winsize = 25
@@ -255,7 +256,9 @@ let g:csv_highlight_column = 'y'
 set cursorline
 
 " Supertab settings
-let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
+let g:SuperTabSetDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-n>"
+" set completefunc=syntaxComplete#Complete
 
 " Toggle Java Errors
 let g:JavaErrorWindowOpen = 0
