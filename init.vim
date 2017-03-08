@@ -299,3 +299,9 @@ endif
 " let vimclojure#NailgunClient = "/home/dmota/vimclojure-easy/lib/vimclojure-nailgun-client/ng"
 let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
+
+" LOCAL CONFIG
+try
+	source ~/.vimlocal
+catch
+endtry
