@@ -171,7 +171,7 @@ nnoremap <leader>sf ciwfalse<esc>
 "nnoremap <leader>pp :CtrlP<cr>
 "nnoremap <leader>pb :CtrlPBuffer<cr>
 nnoremap <leader>g :JavaGetSet<cr>
-nnoremap <leader>z  ZZ
+nnoremap <leader>z zfa{
 nnoremap <leader>o :JavaImportOrganize<cr>
 nnoremap <leader>n :cn<cr>
 nnoremap <leader>a "ap
@@ -188,7 +188,7 @@ let g:EclimJavaHierarchyDefaultAction='edit'
 syntax enable
 colorscheme solarized
 set background=dark
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 let g:solarized_bold=1
 let g:solarized_menu=1
 let g:solarized_italic=1
