@@ -138,7 +138,7 @@ nnoremap ZZ <c-w>z
 " INSERT MAPPINGS
 inoremap jk <esc>:w<cr>
 inoremap JK <esc>:w<cr>
-inoremap <C-w> <esc>:w<cr>i
+" inoremap <C-w> <esc>:w<cr>i
 inoremap <C-Left> <esc>:b#<cr>
 inoremap {<Enter> {<Enter>}<esc>==O
 inoremap <C-l> <c-x><c-l>
@@ -204,6 +204,7 @@ set incsearch
 
 "Do not highlight everything
 " set nohlsearch
+set hlsearch
 
 "TML files are xml
 autocmd BufNewFile,BufRead,BufEnter *.tml :set filetype=xhtml
