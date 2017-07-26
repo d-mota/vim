@@ -1,13 +1,18 @@
 set nocompatible
 "set encoding=utf-8
 " set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim
-
+set modeline
+set modelines=10
 set scrolloff=10
 set tabstop=3
 set shiftwidth=3
 set path+=**
+set nowrap
+"set nowrapscan
 "set relativenumber
 set backspace=eol,indent,start
+set ignorecase
+set smartcase
 
 " Configure bundle
 filetype plugin on
@@ -47,8 +52,10 @@ Plugin 'simnalamburt/vim-mundo'
 Plugin 'tpope/vim-vinegar'
 Plugin 'https://github.com/vim-scripts/paredit.vim.git'
 Plugin 'gnupg'
+Plugin 'ledger/vim-ledger'
+Plugin 'avakarev/vim-watchdog'
 call vundle#end()
-
+let g:paredit_electric_return=0
 let g:netrw_winsize = 25
 "UNITE JIRA CONFIG
 let g:jira_url = 'https://jira.wavecode.com'
@@ -130,7 +137,7 @@ nnoremap ZZ <c-w><c-z>
 nnoremap + i"+<cr>"<esc>==
 "nnoremap - i<cr><esc>==
 nnoremap JK :w<cr> 
-nnoremap / /\c
+"nnoremap / /\c
 nnoremap <F8> :call JavaErrorToggle()<cr>
 nnoremap <F6> :bw<cr>
 nnoremap ZZ <c-w>z
@@ -158,7 +165,8 @@ inoremap :w<cr> <esc>:w<cr>
 
 " LEADER MAPPINGS
 let mapleader="\<Space>"
-nnoremap <leader>p :ProjectList<cr>
+"nnoremap <leader>p :ProjectList<cr>
+nnoremap <leader>p :cprev<cr>
 nnoremap <leader>t :!ctags -R src csrc action sql<cr>
 nnoremap <leader>c :JavaCorrect<cr>
 nnoremap <leader>i :JavaImport<cr>
@@ -179,6 +187,7 @@ nnoremap <leader>b "bp
 nnoremap <leader>s :JavaSearchContext<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>= "*p
+nnoremap <leader>w :cwin<cr> 
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
@@ -250,7 +259,7 @@ let g:easytags_async=1
 " Set bookmark directory
 let NERDTreeBookmarksFile=".NERDTreeBookmarks"
 let NERDTreeQuitOnOpen=1
-let NERDTreeIgnore=['\.vim$', '\~$', '^target$','^build$','WebContent','gradle','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','bin','aspects','xdoclet','tests','sers','run','override','Library','integration','customtests']
+let NERDTreeIgnore=['\.vim$', '\~$', '^target$','^build$','WebContent','gradle','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','bin','aspects','xdoclet','tests','^sers$','run','override','Library','integration','customtests']
 
 let g:csv_highlight_column = 'y'
 
