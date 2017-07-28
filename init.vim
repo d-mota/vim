@@ -192,7 +192,7 @@ nnoremap <leader>w :cwin<cr>
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
 let g:EclimJavaHierarchyDefaultAction='edit'
-
+let g:EclimCompletionMethod = 'omnifunc'
 " SOLARIZED
 syntax enable
 colorscheme solarized
@@ -225,8 +225,8 @@ autocmd BufNewFile,BufRead,BufEnter *.tml :set filetype=xhtml
 " 	set undolevels=5000
 " endif
 
-"set wildmode=list:longest,full
-set wildmode=list
+set wildmode=list:longest,full
+"set wildmode=list
 
 set wildignore+=*/target/*
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
@@ -267,7 +267,8 @@ set cursorline
 
 " Supertab settings
 let g:SuperTabSetDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-n>"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabLongestEnhanced = 0
 " set completefunc=syntaxComplete#Complete
 
 " Toggle Java Errors

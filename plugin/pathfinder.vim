@@ -1,5 +1,6 @@
 let s:plugindir=expand("<sfile>:p:h")
 let s:parsedConfigs={}
+let s:recalculated=0
 
 function! AddFormEntry(values)
 	let s:parsedConfigs['f:nt:'.a:values[2]]=a:values[1]
@@ -28,6 +29,10 @@ function! AddConfigEntry(entry)
 endfunction
 
 function! FindStruts()
+	if s:recalculated == 0
+		call ReloadStruts()
+		let s:recalculated = 1
+	endif
 	let currentFile=substitute(expand("%:r"),'action/','','g')
 	let ext=expand("%:e")
 	if "java" == ext
@@ -71,6 +76,7 @@ function! Dedup(list)
 endfunction	
 
 function! ReloadStruts()
+	echom "Recalculating struts files..."
 	let cwd=getcwd()
 	let s:parsedConfigs={}
 	if filereadable(l:cwd . '/build.xml')		
@@ -81,5 +87,5 @@ function! ReloadStruts()
 	endif
 endfunction
 
-call ReloadStruts()
+"call ReloadStruts()
 nnoremap <leader>sa :call FindStruts()<cr>
