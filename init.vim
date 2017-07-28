@@ -140,6 +140,7 @@ nnoremap JK :w<cr>
 "nnoremap / /\c
 nnoremap <F8> :call JavaErrorToggle()<cr>
 nnoremap <F6> :bw<cr>
+nnoremap <F5> :MundoToggle<cr>
 nnoremap ZZ <c-w>z
 
 " INSERT MAPPINGS
