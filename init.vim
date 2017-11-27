@@ -43,7 +43,7 @@ Plugin 'honza/vim-snippets'
 "Plugin 'chrisbra/csv.vim'
 "Plugin 'mattn/webapi-vim'
 "Plugin 'tyru/open-browser.vim'
-"Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite.vim'
 "Plugin 'rafi/vim-unite-issue'
 Plugin 'xolox/vim-notes'
 Plugin 'vim-scripts/VimClojure'
@@ -54,6 +54,7 @@ Plugin 'https://github.com/vim-scripts/paredit.vim.git'
 Plugin 'gnupg'
 Plugin 'ledger/vim-ledger'
 Plugin 'avakarev/vim-watchdog'
+Plugin 'dracula/vim'
 call vundle#end()
 let g:paredit_electric_return=0
 let g:netrw_winsize = 25
@@ -137,6 +138,7 @@ nnoremap ZZ <c-w><c-z>
 nnoremap + i"+<cr>"<esc>==
 "nnoremap - i<cr><esc>==
 nnoremap JK :w<cr> 
+
 "nnoremap / /\c
 nnoremap <F8> :call JavaErrorToggle()<cr>
 nnoremap <F6> :bw<cr>
@@ -146,6 +148,7 @@ nnoremap ZZ <c-w>z
 " INSERT MAPPINGS
 inoremap jk <esc>:w<cr>
 inoremap JK <esc>:w<cr>
+"inoremap <esc> <Nop>
 " inoremap <C-w> <esc>:w<cr>i
 inoremap <C-Left> <esc>:b#<cr>
 inoremap {<Enter> {<Enter>}<esc>==O
@@ -160,7 +163,7 @@ inoremap `a &aacute;
 inoremap `i &iacute;
 inoremap `o &oacute;
 inoremap `u &uacute;
-inoremap :w<cr> <esc>:w<cr>
+"inoremap :w<cr> <esc>:w<cr>
 "inoremap llog logging.log.Log.macroLog();<esc>hi
 
 
@@ -189,6 +192,7 @@ nnoremap <leader>s :JavaSearchContext<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>= "*p
 nnoremap <leader>w :cwin<cr> 
+nnoremap <leader>q <c-w>c
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
@@ -218,6 +222,7 @@ set hlsearch
 
 "TML files are xml
 autocmd BufNewFile,BufRead,BufEnter *.tml :set filetype=xhtml
+autocmd BufNewFile,BufRead,BufEnter afiedt.buf :set filetype=sql
 
 "Enable persistent undo
 " if has('persistent_undo')
