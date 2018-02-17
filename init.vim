@@ -55,6 +55,8 @@ Plugin 'gnupg'
 Plugin 'ledger/vim-ledger'
 Plugin 'avakarev/vim-watchdog'
 Plugin 'dracula/vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'airblade/vim-gitgutter'
 call vundle#end()
 let g:paredit_electric_return=0
 let g:netrw_winsize = 25
@@ -81,6 +83,7 @@ let g:notes_directories = ['~/wavecode/notes']
 let g:Powerline_symbols="fancy"
 let g:ctrlp_custom_ignore = { 'dir': '^build$' }
 let g:ctrlp_by_filename = 1
+let g:ctrlp_match_window = 'bottom,order:btt,min:5,results:50'
 let g:SuperTabDefaultCompletionType = 'context'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.tml"
 let g:EclimJavascriptValidate = 0
@@ -171,6 +174,7 @@ inoremap `u &uacute;
 let mapleader="\<Space>"
 "nnoremap <leader>p :ProjectList<cr>
 nnoremap <leader>p :cprev<cr>
+nnoremap <leader>P :ProjectProblems!<cr>
 nnoremap <leader>t :!ctags -R src csrc action sql<cr>
 nnoremap <leader>c :JavaCorrect<cr>
 nnoremap <leader>i :JavaImport<cr>
@@ -302,7 +306,7 @@ endfunction
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --nogroup\ --nocolor\ -o
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
