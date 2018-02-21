@@ -53,7 +53,7 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'https://github.com/vim-scripts/paredit.vim.git'
 Plugin 'gnupg'
 Plugin 'ledger/vim-ledger'
-Plugin 'avakarev/vim-watchdog'
+"Plugin 'avakarev/vim-watchdog'
 Plugin 'dracula/vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'airblade/vim-gitgutter'
@@ -159,13 +159,14 @@ inoremap <C-l> <c-x><c-l>
 inoremap <C-u> <c-x><c-u>
 " inoremap "" ""<esc>i
 inoremap <C-T> <esc>f>v%di
-inoremap <C-P> <esc>$pi
+"inoremap <C-P> <esc>$pi
 inoremap <C-E> <esc>lmmf>v%d$p`mi
 inoremap `e &eacute;
 inoremap `a &aacute;
 inoremap `i &iacute;
 inoremap `o &oacute;
 inoremap `u &uacute;
+"inoremap <leader>' `
 "inoremap :w<cr> <esc>:w<cr>
 "inoremap llog logging.log.Log.macroLog();<esc>hi
 
@@ -227,6 +228,8 @@ set hlsearch
 "TML files are xml
 autocmd BufNewFile,BufRead,BufEnter *.tml :set filetype=xhtml
 autocmd BufNewFile,BufRead,BufEnter afiedt.buf :set filetype=sql
+autocmd BufNewFile,BufRead,BufEnter *.conf :set filetype=apache
+
 
 "Enable persistent undo
 " if has('persistent_undo')
