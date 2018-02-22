@@ -14,50 +14,53 @@ set backspace=eol,indent,start
 set ignorecase
 set smartcase
 
-" Configure bundle
+" Configure packages
 filetype plugin on
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'scrooloose/nerdtree'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'mattn/emmet-vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'L9'
-Plugin 'alvan/vim-closetag'
-Plugin 'vim-scripts/FuzzyFinder'
-Plugin 'ervandew/supertab'
-Plugin 'ap/vim-css-color'
-Plugin 'tmhedberg/matchit'
-Plugin 'sukima/xmledit'
-Plugin 'groenewege/vim-less'
-"Plugin 'xolox/vim-easytags'
-Plugin 'xolox/vim-misc'
-" Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-"Plugin 'chrisbra/csv.vim'
-"Plugin 'mattn/webapi-vim'
-"Plugin 'tyru/open-browser.vim'
-Plugin 'Shougo/unite.vim'
-"Plugin 'rafi/vim-unite-issue'
-Plugin 'xolox/vim-notes'
-Plugin 'vim-scripts/VimClojure'
-Plugin 'tpope/vim-fireplace'
-Plugin 'simnalamburt/vim-mundo'
-Plugin 'tpope/vim-vinegar'
-Plugin 'https://github.com/vim-scripts/paredit.vim.git'
-Plugin 'gnupg'
-Plugin 'ledger/vim-ledger'
-"Plugin 'avakarev/vim-watchdog'
-Plugin 'dracula/vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'airblade/vim-gitgutter'
-call vundle#end()
+packadd minpac
+call minpac#init()
+call minpac#add('VundleVim/Vundle.vim')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-commentary')
+call minpac#add('scrooloose/nerdtree')
+call minpac#add('easymotion/vim-easymotion')
+call minpac#add('mattn/emmet-vim')
+call minpac#add('kien/ctrlp.vim')
+call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('eparreno/vim-l9')
+call minpac#add('alvan/vim-closetag')
+call minpac#add('vim-scripts/FuzzyFinder')
+call minpac#add('ervandew/supertab')
+call minpac#add('ap/vim-css-color')
+call minpac#add('tmhedberg/matchit')
+call minpac#add('sukima/xmledit')
+call minpac#add('groenewege/vim-less')
+"call minpac#add('xolox/vim-easytags')
+call minpac#add('xolox/vim-misc')
+" call minpac#add('SirVer/ultisnips')
+call minpac#add('honza/vim-snippets')
+"call minpac#add('chrisbra/csv.vim')
+"call minpac#add('mattn/webapi-vim')
+"call minpac#add('tyru/open-browser.vim')
+call minpac#add('Shougo/unite.vim')
+"call minpac#add('rafi/vim-unite-issue')
+call minpac#add('xolox/vim-notes')
+call minpac#add('vim-scripts/VimClojure')
+call minpac#add('tpope/vim-fireplace')
+call minpac#add('simnalamburt/vim-mundo')
+call minpac#add('tpope/vim-vinegar')
+call minpac#add('https://github.com/vim-scripts/paredit.vim.git')
+call minpac#add('jamessan/vim-gnupg')
+call minpac#add('ledger/vim-ledger')
+"call minpac#add('avakarev/vim-watchdog')
+call minpac#add('dracula/vim')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('airblade/vim-gitgutter')
+
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+
 let g:paredit_electric_return=0
 let g:netrw_winsize = 25
 "UNITE JIRA CONFIG
