@@ -87,7 +87,6 @@ let g:Powerline_symbols="fancy"
 let g:ctrlp_custom_ignore = { 'dir': '^build$' }
 let g:ctrlp_by_filename = 1
 let g:ctrlp_match_window = 'bottom,order:btt,min:5,results:50'
-let g:SuperTabDefaultCompletionType = 'context'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.tml"
 let g:EclimJavascriptValidate = 0
 let g:ctrlp_regexp = 1
@@ -282,11 +281,15 @@ let g:csv_highlight_column = 'y'
 set cursorline
 
 " Supertab settings
-let g:SuperTabSetDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+"let g:SuperTabDefaultCompletionType = "<c-p>"
 let g:SuperTabLongestEnhanced = 0
-" set completefunc=syntaxComplete#Complete
-
+"set completefunc=syntaxComplete#Complete
+autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \ endif
 " Toggle Java Errors
 let g:JavaErrorWindowOpen = 0
 function! JavaErrorToggle()
@@ -326,6 +329,7 @@ endif
 " let vimclojure#NailgunClient = "/home/dmota/vimclojure-easy/lib/vimclojure-nailgun-client/ng"
 let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
+
 
 " LOCAL CONFIG
 try
