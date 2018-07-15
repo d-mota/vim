@@ -23,6 +23,8 @@
 		<xsl:value-of select="@name"/>
 		<xsl:text>,</xsl:text>
 		<xsl:value-of select="@path"/>
+		<xsl:text>,</xsl:text>
+		<xsl:value-of select="@input"/>
 		<xsl:text>
 </xsl:text>
 	</xsl:template>

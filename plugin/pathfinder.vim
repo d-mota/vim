@@ -17,6 +17,9 @@ function! AddActionEntry(values)
 	endif
 	let s:parsedConfigs['a:pt:'.a:values[3]]=a:values[1]
 	let s:parsedConfigs['a:pn:'.a:values[2]]=a:values[3]
+	if len(a:values)>4
+		let s:parsedConfigs['a:pu:'.a:values[4]]=a:values[1]
+	endif
 endfunction
 
 function! AddConfigEntry(entry)
@@ -52,11 +55,18 @@ function! FindStruts()
 			endif
 		endtry
 	elseif "dyn" == ext
-		if search('action="','c')	
-			:normal f"yi"
-			let path=substitute(split(getreg("\""),"?")[0],'\.do','','g')
-			call OpenType([s:parsedConfigs['a:pt:'.path]])
-		endif
+		let currentJsp=substitute(expand("%:r"),'web\/','','g').'.jsp'
+		try
+			if search('action="','c')	
+				:normal f"yi"
+				let path=substitute(split(getreg("\""),"?")[0],'\.do','','g')
+				call OpenType([s:parsedConfigs['a:pt:'.path]])
+			endif
+		catch
+			"echom "Could not find by action, using url:" currentJsp
+			"echom "Opening:" s:parsedConfigs['a:pu:/'.currentJsp]
+			call OpenType([s:parsedConfigs['a:pu:/'.currentJsp]])
+		endtry	
 	endif
 endfunction
 

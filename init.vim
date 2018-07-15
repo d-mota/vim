@@ -8,6 +8,7 @@ set tabstop=3
 set shiftwidth=3
 set path+=**
 set nowrap
+set diffopt=filler,iwhite,vertical
 "set nowrapscan
 "set relativenumber
 set backspace=eol,indent,start
@@ -18,7 +19,7 @@ set smartcase
 filetype plugin on
 filetype off
 packadd minpac
-call minpac#init()
+call minpac#init({'verbose':3})
 call minpac#add('VundleVim/Vundle.vim')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
@@ -38,13 +39,15 @@ call minpac#add('sukima/xmledit')
 call minpac#add('groenewege/vim-less')
 "call minpac#add('xolox/vim-easytags')
 call minpac#add('xolox/vim-misc')
-" call minpac#add('SirVer/ultisnips')
+"call minpac#add('SirVer/ultisnips')
 call minpac#add('honza/vim-snippets')
 "call minpac#add('chrisbra/csv.vim')
 "call minpac#add('mattn/webapi-vim')
 "call minpac#add('tyru/open-browser.vim')
 call minpac#add('Shougo/unite.vim')
+call minpac#add('Shougo/vimproc.vim')
 "call minpac#add('rafi/vim-unite-issue')
+call minpac#add('Shougo/unite-outline')
 call minpac#add('xolox/vim-notes')
 call minpac#add('vim-scripts/VimClojure')
 call minpac#add('tpope/vim-fireplace')
@@ -57,12 +60,20 @@ call minpac#add('ledger/vim-ledger')
 call minpac#add('dracula/vim')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('airblade/vim-gitgutter')
+call minpac#add('https://github.com/vim-scripts/summerfruit256.vim')
+call minpac#add('christoomey/vim-tmux-navigator')
+call minpac#add('leafgarland/typescript-vim')
+call minpac#add('vimwiki/vimwiki')
 
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-
+let g:gitgutter_max_signs=1500
 let g:paredit_electric_return=0
 let g:netrw_winsize = 25
+"UNITE CONFIG
+let g:unite_source_grep_command="ag"
+let g:unite_redraw_hold_candidates = 50000
+let g:unite_source_rec_async_command ='ag --follow --nocolor --nogroup --hidden -g ""'
 "UNITE JIRA CONFIG
 let g:jira_url = 'https://jira.wavecode.com'
 let g:jira_username = ''
@@ -85,13 +96,19 @@ let g:notes_directories = ['~/wavecode/notes']
 
 let g:Powerline_symbols="fancy"
 let g:ctrlp_custom_ignore = { 'dir': '^build$' }
+let g:ctrlp_use_caching = 0 "NEW
+let g:ctrlp_user_command = 'find %s -type f'       "NEW 
 let g:ctrlp_by_filename = 1
-let g:ctrlp_match_window = 'bottom,order:btt,min:5,results:50'
+let g:ctrlp_match_window = 'bottom,order:btt,min:5,results:10'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.tml"
 let g:EclimJavascriptValidate = 0
 let g:ctrlp_regexp = 1
 let g:EclimJavaSearchSingleResult = "edit"
 let g:EclimKeepLocalHistory = 1
+" let g:EclimDtdValidate = 0
+" let g:EclimXsdValidate = 0
+" let g:EclimXmlValidate = 0
+" let g:EclimHtmlValidate = 0
 " NERDTREE CONFIGURATION
 map <C-n> :NERDTreeToggle<CR>
 map <C-f> :NERDTreeFind<CR>
@@ -160,9 +177,10 @@ inoremap {<Enter> {<Enter>}<esc>==O
 inoremap <C-l> <c-x><c-l>
 inoremap <C-u> <c-x><c-u>
 " inoremap "" ""<esc>i
-inoremap <C-T> <esc>f>v%di
+" inoremap <C-T> <esc>f>v%di
 "inoremap <C-P> <esc>$pi
 inoremap <C-E> <esc>lmmf>v%d$p`mi
+inoremap í &#237;
 inoremap `e &eacute;
 inoremap `a &aacute;
 inoremap `i &iacute;
@@ -175,6 +193,7 @@ inoremap `u &uacute;
 
 " LEADER MAPPINGS
 let mapleader="\<Space>"
+nnoremap <leader>jo :Unite outline<cr>
 "nnoremap <leader>p :ProjectList<cr>
 nnoremap <leader>p :cprev<cr>
 nnoremap <leader>P :ProjectProblems!<cr>
@@ -193,13 +212,16 @@ nnoremap <leader>g :JavaGetSet<cr>
 nnoremap <leader>z zfa{
 nnoremap <leader>o :JavaImportOrganize<cr>
 nnoremap <leader>n :cn<cr>
-nnoremap <leader>a "ap
+nnoremap <leader>a <esc>:!ant<cr>
+nnoremap <leader>aa <esc>:!ant all<cr>
+nnoremap <leader>m <esc>:marks<cr>
 nnoremap <leader>b "bp
 nnoremap <leader>s :JavaSearchContext<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>= "*p
 nnoremap <leader>w :cwin<cr> 
 nnoremap <leader>q <c-w>c
+nnoremap <leader>ub :Unite buffer<cr>
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
@@ -217,8 +239,10 @@ let g:solarized_italic=1
 set t_Co=256
 " set t_Co=16
 
+"colorscheme summerfruit256
 "Ctrlp config
 set wildignore+=*.class,*.jar,*/build/*
+let g:ctrlp_by_filename = 0
 
 "Incremental search
 set incsearch
@@ -261,8 +285,8 @@ set hidden
 "ab nbsp &#160;
 
 " UltiSnips
-let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<c-t>"
+" let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
@@ -321,7 +345,7 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching = 1
 endif
 
 " VIMCLOJURE CONFIG
@@ -330,9 +354,11 @@ endif
 let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
 
+hi CursorLine cterm=none
 
 " LOCAL CONFIG
 try
 	source ~/.vimlocal
 catch
 endtry
+
