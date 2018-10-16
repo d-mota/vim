@@ -50,6 +50,7 @@ call minpac#add('Shougo/vimproc.vim')
 call minpac#add('Shougo/unite-outline')
 call minpac#add('xolox/vim-notes')
 call minpac#add('vim-scripts/VimClojure')
+call minpac#add('vim-scripts/errormarker.vim')
 call minpac#add('tpope/vim-fireplace')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-vinegar')
@@ -64,6 +65,7 @@ call minpac#add('https://github.com/vim-scripts/summerfruit256.vim')
 call minpac#add('christoomey/vim-tmux-navigator')
 call minpac#add('leafgarland/typescript-vim')
 call minpac#add('vimwiki/vimwiki')
+call minpac#add('maelvalais/gmpl.vim')
 
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
@@ -102,7 +104,7 @@ let g:ctrlp_by_filename = 1
 let g:ctrlp_match_window = 'bottom,order:btt,min:5,results:10'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.tml"
 let g:EclimJavascriptValidate = 0
-let g:ctrlp_regexp = 1
+let g:ctrlp_regexp = 0
 let g:EclimJavaSearchSingleResult = "edit"
 let g:EclimKeepLocalHistory = 1
 " let g:EclimDtdValidate = 0
@@ -165,9 +167,11 @@ nnoremap JK :w<cr>
 nnoremap <F8> :call JavaErrorToggle()<cr>
 nnoremap <F6> :bw<cr>
 nnoremap <F5> :MundoToggle<cr>
+nnoremap <F7> :make<cr>
 nnoremap ZZ <c-w>z
 
 " INSERT MAPPINGS
+inoremap <C-j> <esc>:TmuxNavigateDown<cr>a
 inoremap jk <esc>:w<cr>
 inoremap JK <esc>:w<cr>
 "inoremap <esc> <Nop>
@@ -208,20 +212,22 @@ nnoremap <leader>sf ciwfalse<esc>
 "nnoremap <leader>tt :call TapestryFind()<cr>
 "nnoremap <leader>pp :CtrlP<cr>
 "nnoremap <leader>pb :CtrlPBuffer<cr>
-nnoremap <leader>g :JavaGetSet<cr>
+nnoremap <leader>jg :JavaGetSet<cr>
 nnoremap <leader>z zfa{
 nnoremap <leader>o :JavaImportOrganize<cr>
 nnoremap <leader>n :cn<cr>
-nnoremap <leader>a <esc>:!ant<cr>
+nnoremap <leader>as <esc>:!ant<cr>
 nnoremap <leader>aa <esc>:!ant all<cr>
 nnoremap <leader>m <esc>:marks<cr>
 nnoremap <leader>b "bp
 nnoremap <leader>s :JavaSearchContext<cr>
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>= "*p
 nnoremap <leader>w :cwin<cr> 
 nnoremap <leader>q <c-w>c
+nnoremap <leader>pb :!buildsystem/bin/updatebuttons %<cr>
 nnoremap <leader>ub :Unite buffer<cr>
+nnoremap <leader>= :%!tidy -xml -indent -q -<cr> 
+nnoremap <leader>gl :!tig -- %<cr>
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
@@ -355,6 +361,8 @@ let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
 
 hi CursorLine cterm=none
+"set complete=.,w,b,u,i
+set complete=.
 
 " LOCAL CONFIG
 try
