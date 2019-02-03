@@ -14,6 +14,8 @@ set diffopt=filler,iwhite,vertical
 set backspace=eol,indent,start
 set ignorecase
 set smartcase
+"set undofile
+"set undodir=~/.vimundo
 
 " Configure packages
 filetype plugin on
@@ -26,17 +28,17 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('easymotion/vim-easymotion')
-call minpac#add('mattn/emmet-vim')
+call minpac#add('mattn/emmet-vim') "Expanding abbreviations
 call minpac#add('kien/ctrlp.vim')
 call minpac#add('altercation/vim-colors-solarized')
-call minpac#add('eparreno/vim-l9')
-call minpac#add('alvan/vim-closetag')
-call minpac#add('vim-scripts/FuzzyFinder')
+call minpac#add('eparreno/vim-l9') "Vim script library
+call minpac#add('alvan/vim-closetag') "Auto close tags
+call minpac#add('vim-scripts/FuzzyFinder') "<leader>ff
 call minpac#add('ervandew/supertab')
 call minpac#add('ap/vim-css-color')
-call minpac#add('tmhedberg/matchit')
+call minpac#add('tmhedberg/matchit') "%
 call minpac#add('sukima/xmledit')
-call minpac#add('groenewege/vim-less')
+call minpac#add('groenewege/vim-less') "less css
 "call minpac#add('xolox/vim-easytags')
 call minpac#add('xolox/vim-misc')
 "call minpac#add('SirVer/ultisnips')
@@ -50,9 +52,9 @@ call minpac#add('Shougo/vimproc.vim')
 call minpac#add('Shougo/unite-outline')
 call minpac#add('xolox/vim-notes')
 call minpac#add('vim-scripts/VimClojure')
-call minpac#add('vim-scripts/errormarker.vim')
-call minpac#add('tpope/vim-fireplace')
-call minpac#add('simnalamburt/vim-mundo')
+call minpac#add('vim-scripts/errormarker.vim') "highlights errors
+call minpac#add('tpope/vim-fireplace') "Clojure thing
+call minpac#add('simnalamburt/vim-mundo') "undo
 call minpac#add('tpope/vim-vinegar')
 call minpac#add('https://github.com/vim-scripts/paredit.vim.git')
 call minpac#add('jamessan/vim-gnupg')
@@ -163,7 +165,7 @@ nnoremap + i"+<cr>"<esc>==
 "nnoremap - i<cr><esc>==
 nnoremap JK :w<cr> 
 
-"nnoremap / /\c
+nnoremap / /\c
 nnoremap <F8> :call JavaErrorToggle()<cr>
 nnoremap <F6> :bw<cr>
 nnoremap <F5> :MundoToggle<cr>
@@ -197,6 +199,8 @@ inoremap `u &uacute;
 
 " LEADER MAPPINGS
 let mapleader="\<Space>"
+nnoremap <leader>ff :FufCoverageFile<cr>
+nnoremap <leader>fb :FufBuffer<cr>
 nnoremap <leader>jo :Unite outline<cr>
 "nnoremap <leader>p :ProjectList<cr>
 nnoremap <leader>p :cprev<cr>
@@ -228,6 +232,7 @@ nnoremap <leader>pb :!buildsystem/bin/updatebuttons %<cr>
 nnoremap <leader>ub :Unite buffer<cr>
 nnoremap <leader>= :%!tidy -xml -indent -q -<cr> 
 nnoremap <leader>gl :!tig -- %<cr>
+nnoremap <leader>gb :Gblame<cr>
 
 " ECLIM SETTINGS
 let g:EclimLoggingDisabled=1
