@@ -10,6 +10,5 @@ if [ -d $VIMDIR ]; then
 	exit 1
 fi
 git clone https://github.com/d-mota/vim.git $VIMDIR
-git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 ln -s $VIMDIR/init.vim $VIMFILE
 

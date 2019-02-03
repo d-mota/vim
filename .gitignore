@@ -2,3 +2,5 @@ bundle
 .netrwhist
 eclim
 pack
+plugged
+autoload

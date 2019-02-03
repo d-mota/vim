@@ -17,60 +17,56 @@ set smartcase
 "set undofile
 "set undodir=~/.vimundo
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Configure packages
 filetype plugin on
 filetype off
-packadd minpac
-call minpac#init({'verbose':3})
-call minpac#add('VundleVim/Vundle.vim')
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-commentary')
-call minpac#add('scrooloose/nerdtree')
-call minpac#add('easymotion/vim-easymotion')
-call minpac#add('mattn/emmet-vim') "Expanding abbreviations
-call minpac#add('kien/ctrlp.vim')
-call minpac#add('altercation/vim-colors-solarized')
-call minpac#add('eparreno/vim-l9') "Vim script library
-call minpac#add('alvan/vim-closetag') "Auto close tags
-call minpac#add('vim-scripts/FuzzyFinder') "<leader>ff
-call minpac#add('ervandew/supertab')
-call minpac#add('ap/vim-css-color')
-call minpac#add('tmhedberg/matchit') "%
-call minpac#add('sukima/xmledit')
-call minpac#add('groenewege/vim-less') "less css
-"call minpac#add('xolox/vim-easytags')
-call minpac#add('xolox/vim-misc')
-"call minpac#add('SirVer/ultisnips')
-call minpac#add('honza/vim-snippets')
-"call minpac#add('chrisbra/csv.vim')
-"call minpac#add('mattn/webapi-vim')
-"call minpac#add('tyru/open-browser.vim')
-call minpac#add('Shougo/unite.vim')
-call minpac#add('Shougo/vimproc.vim')
-"call minpac#add('rafi/vim-unite-issue')
-call minpac#add('Shougo/unite-outline')
-call minpac#add('xolox/vim-notes')
-call minpac#add('vim-scripts/VimClojure')
-call minpac#add('vim-scripts/errormarker.vim') "highlights errors
-call minpac#add('tpope/vim-fireplace') "Clojure thing
-call minpac#add('simnalamburt/vim-mundo') "undo
-call minpac#add('tpope/vim-vinegar')
-call minpac#add('https://github.com/vim-scripts/paredit.vim.git')
-call minpac#add('jamessan/vim-gnupg')
-call minpac#add('ledger/vim-ledger')
-"call minpac#add('avakarev/vim-watchdog')
-call minpac#add('dracula/vim')
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('airblade/vim-gitgutter')
-call minpac#add('https://github.com/vim-scripts/summerfruit256.vim')
-call minpac#add('christoomey/vim-tmux-navigator')
-call minpac#add('leafgarland/typescript-vim')
-call minpac#add('vimwiki/vimwiki')
-call minpac#add('maelvalais/gmpl.vim')
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
+Plug 'mattn/emmet-vim' "Expanding abbreviations
+Plug 'kien/ctrlp.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'eparreno/vim-l9' "Vim script library
+Plug 'alvan/vim-closetag' "Auto close tags
+Plug 'vim-scripts/FuzzyFinder' "<leader>ff
+Plug 'ervandew/supertab'
+Plug 'ap/vim-css-color'
+Plug 'tmhedberg/matchit' "%
+Plug 'sukima/xmledit'
+Plug 'groenewege/vim-less' "less css
+Plug 'xolox/vim-misc'
+Plug 'honza/vim-snippets'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/unite-outline'
+Plug 'xolox/vim-notes'
+Plug 'vim-scripts/VimClojure'
+Plug 'vim-scripts/errormarker.vim' "highlights errors
+Plug 'tpope/vim-fireplace' "Clojure thing
+Plug 'simnalamburt/vim-mundo' "undo
+Plug 'tpope/vim-vinegar'
+Plug 'https://github.com/vim-scripts/paredit.vim.git'
+Plug 'jamessan/vim-gnupg'
+Plug 'ledger/vim-ledger'
+Plug 'dracula/vim'
+Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/vim-scripts/summerfruit256.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'leafgarland/typescript-vim'
+Plug 'vimwiki/vimwiki'
+Plug 'maelvalais/gmpl.vim'
+call plug#end()
 
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 let g:gitgutter_max_signs=1500
 let g:paredit_electric_return=0
 let g:netrw_winsize = 25
