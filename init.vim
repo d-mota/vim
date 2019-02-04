@@ -37,7 +37,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'eparreno/vim-l9' "Vim script library
 Plug 'alvan/vim-closetag' "Auto close tags
-Plug 'vim-scripts/FuzzyFinder' "<leader>ff
+"Plug 'vim-scripts/FuzzyFinder' "<leader>ff
 Plug 'ervandew/supertab'
 Plug 'ap/vim-css-color'
 Plug 'tmhedberg/matchit' "%
@@ -65,6 +65,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'leafgarland/typescript-vim'
 Plug 'vimwiki/vimwiki'
 Plug 'maelvalais/gmpl.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 
 let g:gitgutter_max_signs=1500
@@ -195,7 +196,7 @@ inoremap `u &uacute;
 
 " LEADER MAPPINGS
 let mapleader="\<Space>"
-nnoremap <leader>ff :FufCoverageFile<cr>
+nnoremap <leader>ff :FZF<cr>
 nnoremap <leader>fb :FufBuffer<cr>
 nnoremap <leader>jo :Unite outline<cr>
 "nnoremap <leader>p :ProjectList<cr>
