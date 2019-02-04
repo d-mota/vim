@@ -75,10 +75,6 @@ let g:netrw_winsize = 25
 let g:unite_source_grep_command="ag"
 let g:unite_redraw_hold_candidates = 50000
 let g:unite_source_rec_async_command ='ag --follow --nocolor --nogroup --hidden -g ""'
-"UNITE JIRA CONFIG
-let g:jira_url = 'https://jira.wavecode.com'
-let g:jira_username = ''
-let g:jira_password = ''
 " Customize
 let g:unite_source_issue_jira_priority_table = {
   \ 10000: '◡', 1: '⚡', 2: 'ᛏ', 3: '●', 4: '○', 5: '▽' }
@@ -93,7 +89,7 @@ let g:unite_source_issue_jira_type_table = {
   \ 6: 'epic', 7: 'story', 8: 'system', 9: 'sub-bug' }
 
 "NOTES CONFIG
-let g:notes_directories = ['~/wavecode/notes']
+let g:notes_directories = ['~/.vim-notes']
 
 let g:Powerline_symbols="fancy"
 let g:ctrlp_custom_ignore = { 'dir': '^build$' }
