@@ -1,7 +1,7 @@
 set nocompatible
 "set encoding=utf-8
 " set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim
-set modeline
+set nomodeline
 set modelines=10
 set scrolloff=10
 set tabstop=3
@@ -14,6 +14,7 @@ set diffopt=filler,iwhite,vertical
 set backspace=eol,indent,start
 set ignorecase
 set smartcase
+set fileencodings+=ucs-2
 "set undofile
 "set undodir=~/.vimundo
 
@@ -27,6 +28,7 @@ endif
 filetype plugin on
 filetype off
 call plug#begin('~/.vim/plugged')
+Plug 'sirver/ultisnips'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -36,9 +38,10 @@ Plug 'mattn/emmet-vim' "Expanding abbreviations
 Plug 'kien/ctrlp.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'eparreno/vim-l9' "Vim script library
-Plug 'alvan/vim-closetag' "Auto close tags
+"Plug 'alvan/vim-closetag' "Auto close tags
 "Plug 'vim-scripts/FuzzyFinder' "<leader>ff
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
 Plug 'ap/vim-css-color'
 Plug 'tmhedberg/matchit' "%
 Plug 'sukima/xmledit'
@@ -46,7 +49,7 @@ Plug 'groenewege/vim-less' "less css
 Plug 'xolox/vim-misc'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/unite-outline'
 Plug 'xolox/vim-notes'
 Plug 'vim-scripts/VimClojure'
@@ -66,7 +69,16 @@ Plug 'leafgarland/typescript-vim'
 Plug 'vimwiki/vimwiki'
 Plug 'maelvalais/gmpl.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'Quramy/tsuquyomi'
 call plug#end()
+
+"Emmet <c-z>
+let g:user_emmet_leader_key='<C-Z>'
+"Typescript config
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = '--lib es6'
+autocmd FileType typescript :set makeprg=tsc
+
 
 let g:gitgutter_max_signs=1500
 let g:paredit_electric_return=0
@@ -213,8 +225,10 @@ nnoremap <leader>jg :JavaGetSet<cr>
 nnoremap <leader>z zfa{
 nnoremap <leader>o :JavaImportOrganize<cr>
 nnoremap <leader>n :cn<cr>
-nnoremap <leader>as <esc>:!ant<cr>
-nnoremap <leader>aa <esc>:!ant all<cr>
+nnoremap <leader>as <esc>:call AngularFind('scss')<cr>
+nnoremap <leader>at <esc>:call AngularFind('ts')<cr>
+nnoremap <leader>ah <esc>:call AngularFind('html')<cr>
+nnoremap <leader>aa <esc>:call AngularFind('next')<cr>
 nnoremap <leader>m <esc>:marks<cr>
 nnoremap <leader>b "bp
 nnoremap <leader>s :JavaSearchContext<cr>
@@ -259,6 +273,7 @@ set hlsearch
 autocmd BufNewFile,BufRead,BufEnter *.tml :set filetype=xhtml
 autocmd BufNewFile,BufRead,BufEnter afiedt.buf :set filetype=sql
 autocmd BufNewFile,BufRead,BufEnter *.conf :set filetype=apache
+autocmd BufNewFile,BufRead,BufEnter *.boot :set filetype=clojure
 
 
 "Enable persistent undo
@@ -289,7 +304,7 @@ set hidden
 "ab nbsp &#160;
 
 " UltiSnips
-" let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -302,22 +317,23 @@ let g:easytags_async=1
 " Set bookmark directory
 let NERDTreeBookmarksFile=".NERDTreeBookmarks"
 let NERDTreeQuitOnOpen=1
-let NERDTreeIgnore=['\.vim$', '\~$', '^target$','^build$','WebContent','gradle','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','bin','aspects','xdoclet','tests','^sers$','run','override','Library','integration','customtests']
+let NERDTreeIgnore=['e2e','node_modules','\.vim$', '\~$', '^target$','^build$','WebContent','gradle','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','^bin$','aspects','xdoclet','tests','^sers$','run','override','Library','integration','customtests']
 
 let g:csv_highlight_column = 'y'
 
 set cursorline
 
 " Supertab settings
-"let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
 "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 "let g:SuperTabDefaultCompletionType = "<c-p>"
 let g:SuperTabLongestEnhanced = 0
 "set completefunc=syntaxComplete#Complete
-autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
-    \ endif
+" autocmd FileType *
+"     \ if &omnifunc != '' |
+"     \   call SuperTabChain(&omnifunc, "<c-p>") |
+"     \ endif
 " Toggle Java Errors
 let g:JavaErrorWindowOpen = 0
 function! JavaErrorToggle()
@@ -331,12 +347,30 @@ function! JavaErrorToggle()
 endfunction
 
 function! TapestryFind()
-        let filesplit=split(expand('%'),'\.')
-        if filesplit[1]=='tml'
-                execute ":edit ". substitute(filesplit[0].'.java','resources','java','')
-        else
-                execute ":edit ".substitute(filesplit[0].'.tml','java','resources','')
-        endif
+	let filesplit=split(expand('%'),'\.')
+	if filesplit[1]=='tml'
+		execute ":edit ". substitute(filesplit[0].'.java','resources','java','')
+	else
+		execute ":edit ".substitute(filesplit[0].'.tml','java','resources','')
+	endif
+endfunction
+
+function! AngularFind(ext)
+	let filesplit=split(expand('%'),'\.')	
+	let theExt=a:ext
+	if theExt == "next"
+		let currentExt=filesplit[-1]
+		if currentExt == "ts"
+			let theExt = "html"
+		elseif currentExt == "html"
+			let theExt = "scss"
+		else
+			let theExt="ts"
+		endif
+	endif
+	let newfile=join(filesplit[0:len(filesplit) - 2],".")
+	" echom newfile.".".theExt
+	execute ":edit ".newfile.".".theExt
 endfunction
 
 
