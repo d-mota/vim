@@ -10,7 +10,7 @@ set path+=**
 set nowrap
 set diffopt=filler,iwhite,vertical
 "set nowrapscan
-"set relativenumber
+set relativenumber
 set backspace=eol,indent,start
 set ignorecase
 set smartcase
@@ -72,6 +72,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Quramy/tsuquyomi'
 call plug#end()
 
+"Youcompleteme
+let g:ycm_max_diagnostics_to_display = 5000
+let g:ycm_java_jdtls_use_clean_workspace = 0
+let g:ycm_java_jdtls_workspace_root_path = $HOME.'/ycmworkspace'
+let $JAVA_TOOL_OPTIONS='-javaagent:'.$HOME.'/lombok.jar'
 "Emmet <c-z>
 let g:user_emmet_leader_key='<C-Z>'
 "Typescript config
@@ -231,7 +236,10 @@ nnoremap <leader>ah <esc>:call AngularFind('html')<cr>
 nnoremap <leader>aa <esc>:call AngularFind('next')<cr>
 nnoremap <leader>m <esc>:marks<cr>
 nnoremap <leader>b "bp
-nnoremap <leader>s :JavaSearchContext<cr>
+nnoremap <leader>s :YcmCompleter GoToImplementation<cr>
+nnoremap <leader>si :YcmCompleter GoToImplementation<cr>
+nnoremap <leader>sd :YcmCompleter GoToDefinition<cr>
+nnoremap <leader>yc :YcmCompleter FixIt<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>w :cwin<cr> 
 nnoremap <leader>q <c-w>c
@@ -317,7 +325,7 @@ let g:easytags_async=1
 " Set bookmark directory
 let NERDTreeBookmarksFile=".NERDTreeBookmarks"
 let NERDTreeQuitOnOpen=1
-let NERDTreeIgnore=['e2e','node_modules','\.vim$', '\~$', '^target$','^build$','WebContent','gradle','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','^bin$','aspects','xdoclet','tests','^sers$','run','override','Library','integration','customtests']
+let NERDTreeIgnore=['e2e','node_modules','\.vim$', '\~$', '^target$','^build$','WebContent','gradle','www','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','^bin$','aspects','xdoclet','tests','^sers$','run','override','Library','integration','customtests']
 
 let g:csv_highlight_column = 'y'
 
@@ -325,7 +333,7 @@ set cursorline
 
 " Supertab settings
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 "let g:SuperTabDefaultCompletionType = "<c-p>"
 let g:SuperTabLongestEnhanced = 0
@@ -402,3 +410,7 @@ try
 catch
 endtry
 
+" LAST POSITION OPENING
+if has("autocmd")
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
