@@ -74,8 +74,9 @@ call plug#end()
 
 "Youcompleteme
 let g:ycm_max_diagnostics_to_display = 5000
-let g:ycm_java_jdtls_use_clean_workspace = 0
+let g:ycm_java_jdtls_use_clean_workspace = 1
 let g:ycm_java_jdtls_workspace_root_path = $HOME.'/ycmworkspace'
+let g:ycm_confirm_extra_conf = 0
 let $JAVA_TOOL_OPTIONS='-javaagent:'.$HOME.'/lombok.jar'
 "Emmet <c-z>
 let g:user_emmet_leader_key='<C-Z>'
@@ -83,7 +84,6 @@ let g:user_emmet_leader_key='<C-Z>'
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = '--lib es6'
 autocmd FileType typescript :set makeprg=tsc
-
 
 let g:gitgutter_max_signs=1500
 let g:paredit_electric_return=0
@@ -209,7 +209,7 @@ inoremap `u &uacute;
 
 " LEADER MAPPINGS
 let mapleader="\<Space>"
-nnoremap <leader>ff :FZF<cr>
+nnoremap <leader>ff :FZF!<cr>
 nnoremap <leader>fb :FufBuffer<cr>
 nnoremap <leader>jo :Unite outline<cr>
 "nnoremap <leader>p :ProjectList<cr>
@@ -239,7 +239,9 @@ nnoremap <leader>b "bp
 nnoremap <leader>s :YcmCompleter GoToImplementation<cr>
 nnoremap <leader>si :YcmCompleter GoToImplementation<cr>
 nnoremap <leader>sd :YcmCompleter GoToDefinition<cr>
-nnoremap <leader>yc :YcmCompleter FixIt<cr>
+nnoremap <leader>sc :YcmCompleter FixIt<cr>
+nnoremap <leader>so :YcmCompleter OrganizeImports<cr>
+nnoremap <leader>sr :YcmCompleter GoToReferences<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>w :cwin<cr> 
 nnoremap <leader>q <c-w>c
@@ -325,7 +327,7 @@ let g:easytags_async=1
 " Set bookmark directory
 let NERDTreeBookmarksFile=".NERDTreeBookmarks"
 let NERDTreeQuitOnOpen=1
-let NERDTreeIgnore=['e2e','node_modules','\.vim$', '\~$', '^target$','^build$','WebContent','gradle','www','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','^bin$','aspects','xdoclet','tests','^sers$','run','override','Library','integration','customtests']
+let NERDTreeIgnore=['e2e','node_modules','\.vim$', '\~$', '^target$','^build$','WebContent','gradle','www','hibernate_merge','git_tasks','install','lib','EngineeringServices','docs','compilelib','clients','^bin$','aspects','xdoclet','^sers$','run','override','Library','integration','customtests']
 
 let g:csv_highlight_column = 'y'
 
